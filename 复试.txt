@@ -1,0 +1,77 @@
+C++中string类的用法
+std::限定只使用STL中的东西
+各种容器的各种操作
+stringstream可以吞下任何类型，根据实际需要吐出不同的类型
+
+c++string类的reverse方法用法
+ std:: void reverse(s.begin(), s.end());
+上面是原地反转的方法
+
+int型数据转化成char型数据的方法，例：
+int j=1；
+string s；
+s+=j+‘0’；  //即加上‘0’，因为字符0是数字的第一个ASCII，字符0对应ASCII值为48，加一为49
+
+string str = "hello c++! +++";
+    // 从位置pos=10处开始删除，直到结尾
+    // 即： " +++"
+str.erase(10);
+
+
+如果需要反转到别的 string 里面，一样简单：
+s1.assign(s.rbegin(), s.rend());
+效率也相当理想。
+
+
+C++中数值类型转化成string型的方法to_string函数，例：to_string(1)
+
+c.begin() 返回一个迭代器，它指向容器c的第一个元素
+c.end() 返回一个迭代器，它指向容器c的最后一个元素的下一个位置
+c.rbegin() 返回一个逆序迭代器，它指向容器c的最后一个元素
+c.rend() 返回一个逆序迭代器，它指向容器c的第一个元素前面的位置       要注意的是位置，是一个int
+c.back()则指向字符串的最后一个字符
+
+故可用s1.assign(s.rbegin(),s.rend())来实现字符串的反转
+
+一个char数组转化成int型的函数
+int str_to_int(char str[]){
+    if(str[0]=='\0'){
+        return 0;
+    }
+    int n=str[0]-'0';
+    for(int i=1;str[i]!='\0';i++){
+        n=n*10+(str[i]-'0');
+    }
+    return n;
+}
+
+C语言标注库主要包含了一些常用的函数定义和宏定义，它们的头文件名中通常包含“.h”。在C++标准库中也提供了相应的文件，头文件的约定是：把C标准库头文件名的“.h”去掉，然后在文件名前面加上一个字母c。例如，对于C标准库中的用于对输入/输出功能进行声明的头文件stdio.h，在C++标准库中相应的头文件为cstdio。
+
+所谓namespace，是指标识符的各种可见范围。C++标准程序库中的所有标识符都被定义于一个名为std的namespace中。
+     iostream和iostream.h的区别：
+     后缀为.h的头文件C++标注已经明确提出不支持了。早些的实现将标准库功能定义在全局空间里，声明在带.h后缀的头文件里，C++标准为了和C区别开，也为了正确地使用命名空间，规定头文件不使用后缀.h。因此，当使用<iostream.h>时，相当于在C中调用库函数，使用的是全局命名空间，也就是早期的C++实现。当使用<iostream>时，该头文件没有定义全局命名空间，必须使用namespace std，这样才能使用类似于cout这样的C++标识符。<理解>
+
+C++中要区别string和string.h头文件  两者上有本质的区别
+CSting:CString是MFC或者ATL中的实现，是MFC里面封装的一个关于字符串处理的功能很强大的类,只有支持MFC的工程才可以使用。如在linux上的工程就不能用CString了，只能用标准C++中的string类了。在MFC中使用不需要自己加，但在另外的程序中需要加入#include<CString>。
+
+string：string类既是一个标准c++的类库，同时也是STL（Standard Template Library,标准模版库）中的类库，已经纳入C++标准之中。它和CString有本质的区别。
+
+string.h:C语言里面关于字符数组的函数定义的头文件，常用函数有strlen、strcmp、strcpy等等，这个头文件跟C++的string类半点关系也没有，所以 <string>并非 <string.h>的“升级版本”，他们是毫无关系的两个头文件。
+
+综上，cout函数重载的是string类库中的string类型，而不是CString或string.h中的。
+故在用cout进行输出的时候，如果使用的是string.h头文件，则无法进行输出，string则可以输出相应的字符串
+
+
+
+
+1、set和hashset都不允许元素重复，但是set是有序的，hashset无顺序，所以向set插入元素必须重载<操作符比较大小，而hashset只需重载equal()，比较是否相等即可。
+
+2、set底层数据结构为红黑树（即平衡二叉树），索引时间为log(n)，而hashset基于哈希表，比set要快一些，log(1)。
+
+至于各自的用法，其实C++中的set我一般用来排序，懒得自己写排序函数，一堆杂乱无章的数据塞进去，取出来人家已经帮排好序了很安逸啊。java的hashset虽然没有排序的作用，但是可以帮去重呀，如果不想自己写去重的方法，直接把数据扔到hashset中，取出来就是没有重复的了。还有一个用处，数据量很大时怎么快速判断某个数是不是存在，hashset可以在log(1)的时间帮你定位哟。
+
+
+
+
+
+hashmap的各种操作，经典实用if（hash.find('s')==hash.end()）(end()最后一个位置的下一个位置)
